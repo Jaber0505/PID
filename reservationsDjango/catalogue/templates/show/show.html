@@ -1,10 +1,11 @@
 {% extends "base.html" %}
-
 {% block title %}{{ title }}{% endblock %}
 
 {% block content %}
+
+    <!-- 🔧 Boutons d’administration -->
     <div class="form-actions">
-        <a href="{% url 'catalogue:show-edit' show.slug %}" class="btn btn-primary">✏️ Modifier</a>
+        <a href="{% url 'catalogue:show-edit' show.slug %}" class="btn btn-primary">✏ Modifier</a>
         <a href="{% url 'catalogue:show-delete' show.slug %}" class="btn btn-danger">🗑 Supprimer</a>
     </div>
 
@@ -15,6 +16,7 @@
 
     <hr>
 
+    <!-- 💰 Tarifs -->
     <h3>Tarifs</h3>
     <ul>
         {% for price in show.prices.all %}
@@ -23,11 +25,11 @@
             <li>Aucun tarif défini</li>
         {% endfor %}
     </ul>
-    
+
     <hr>
 
+    <!-- 📅 Représentations -->
     <h3>📅 Représentations à venir</h3>
-
     {% if representations %}
         <ul>
             {% for rep in representations %}
@@ -42,7 +44,38 @@
 
     <hr>
 
+    <!-- ⭐ Avis utilisateurs -->
+    <h3>⭐ Avis des spectateurs</h3>
+
+    {% if reviews %}
+        <ul>
+            {% for review in reviews %}
+                <li>
+                    <strong>{{ review.user.username }}</strong> — Note : {{ review.rating }}/5<br>
+                    <em>{{ review.comment|linebreaksbr }}</em>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>Aucun avis pour ce film.</p>
+    {% endif %}
+
+    <!-- 🧍 Actions utilisateur -->
+    {% if user.is_authenticated %}
+        <div class="form-actions" style="margin-top: 1em;">
+            {% if user_review %}
+                <a href="{% url 'catalogue:review-edit' user_review.id %}" class="btn btn-primary">✏ Modifier mon avis</a>
+                <a href="{% url 'catalogue:review-delete' user_review.id %}" class="btn btn-danger">🗑 Supprimer mon avis</a>
+            {% else %}
+                <a href="{% url 'catalogue:review-create' show.slug %}" class="btn btn-success">📝 Donner mon avis</a>
+            {% endif %}
+        </div>
+    {% endif %}
+
+    <hr>
+
     <div class="form-actions">
         <a href="{% url 'catalogue:show-index' %}" class="btn btn-secondary">🔙 Retour à la liste</a>
     </div>
-{% endblock %}
+
+{% endblock %}

@@ -12,7 +12,7 @@
     <div class="form-actions">
         {% if form.instance.pk %}
             <button type="submit" class="btn btn-primary">💾 Enregistrer</button>
-            <a href="{% url 'catalogue:show-show' form.instance.slug %}" class="btn btn-danger">❌ Annuler</a>
+            <a href="{% url 'catalogue:' form.instance.slug %}" class="btn btn-danger">❌ Annuler</a>
         {% else %}
             <button type="submit" class="btn btn-success">➕ Créer</button>
             <a href="{% url 'catalogue:show-index' %}" class="btn btn-danger">❌ Annuler</a>

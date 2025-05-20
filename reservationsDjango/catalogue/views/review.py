@@ -41,7 +41,7 @@ def edit(request, review_id):
         if form.is_valid():
             form.save()
             messages.success(request, "✅ Avis modifié.")
-            return redirect("catalogue:show-show", review.show.id)
+            return redirect("catalogue:show-show", slug=review.show.slug)
         messages.error(request, "❌ Erreur lors de la modification.")
     else:
         form = ReviewForm(instance=review)
@@ -58,10 +58,10 @@ def delete(request, review_id):
     review = get_object_or_404(Review, pk=review_id, user=request.user)
 
     if request.method == "POST":
-        show_id = review.show.id
+        show_slug = review.show.slug
         review.delete()
         messages.success(request, "🗑 Avis supprimé.")
-        return redirect("catalogue:show-show", show_id)
+        return redirect("catalogue:show-show", slug=show_slug)
 
     return render(request, "review/delete.html", {
         "review": review,
