@@ -48,6 +48,7 @@ urlpatterns = [
     
     # Review
     path("review/<int:review_id>/edit/", views.review.edit, name="review-edit"),
+    path("review/<slug:slug>/create/", views.review.create, name="review-create"),
     path("review/<int:review_id>/delete/", views.review.delete, name="review-delete"),
 
     # Representations

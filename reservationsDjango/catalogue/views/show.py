@@ -6,7 +6,7 @@ from catalogue.forms.show_form import ShowForm
 def index(request):
     shows = Show.objects.all()
     return render(request, "show/index.html", {
-        "title": "🎬 Films",
+        "title": "🎬 Shows",
         "shows": shows,
     })
 

@@ -38,7 +38,7 @@
                     <a href="{% url 'catalogue:artist-index' %}" class="{% if '/artist/' in request.path %}active{% endif %}">Artistes</a>
                 </li>
                 <li>
-                    <a href="{% url 'catalogue:show-index' %}" class="{% if '/show/' in request.path %}active{% endif %}">Films</a>
+                    <a href="{% url 'catalogue:show-index' %}" class="{% if '/show/' in request.path %}active{% endif %}">Shows</a>
                 </li>
                 {% if user.is_authenticated %}
                     <li>

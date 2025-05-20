@@ -3,25 +3,24 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from catalogue.forms.review_form import ReviewForm
 from catalogue.models.review import Review
-from catalogue.models.representation import Representation
-
+from catalogue.models.show import Show
 @login_required
-def create(request, representation_id):
-    representation = get_object_or_404(Representation, pk=representation_id)
+def create(request, slug):
+    show = get_object_or_404(Show, slug=slug)
 
-    if Review.objects.filter(user=request.user, representation=representation).exists():
-        messages.info(request, "ℹ️ Vous avez déjà laissé un avis pour cette représentation.")
-        return redirect("catalogue:representation-show", representation_id)
+    if Review.objects.filter(user=request.user, show=show).exists():
+        messages.info(request, "ℹ️ Vous avez déjà laissé un avis pour ce spectacle.")
+        return redirect("catalogue:show-show", slug=slug)
 
     if request.method == "POST":
         form = ReviewForm(request.POST)
         if form.is_valid():
             review = form.save(commit=False)
             review.user = request.user
-            review.representation = representation
+            review.show = show
             review.save()
             messages.success(request, "✅ Avis ajouté avec succès.")
-            return redirect("catalogue:representation-show", representation_id)
+            return redirect("catalogue:show-show", slug=slug)
         messages.error(request, "❌ Erreur lors de la soumission de l’avis.")
     else:
         form = ReviewForm()
@@ -29,8 +28,9 @@ def create(request, representation_id):
     return render(request, "review/form.html", {
         "form": form,
         "title": "📝 Donner un avis",
-        "representation": representation,
+        "show": show,
     })
+
 
 @login_required
 def edit(request, review_id):
@@ -41,7 +41,7 @@ def edit(request, review_id):
         if form.is_valid():
             form.save()
             messages.success(request, "✅ Avis modifié.")
-            return redirect("catalogue:representation-show", review.representation.id)
+            return redirect("catalogue:show-show", review.show.id)
         messages.error(request, "❌ Erreur lors de la modification.")
     else:
         form = ReviewForm(instance=review)
@@ -49,18 +49,19 @@ def edit(request, review_id):
     return render(request, "review/form.html", {
         "form": form,
         "title": "✏️ Modifier mon avis",
-        "representation": review.representation,
+        "show": review.show,
     })
+
 
 @login_required
 def delete(request, review_id):
     review = get_object_or_404(Review, pk=review_id, user=request.user)
 
     if request.method == "POST":
-        representation_id = review.representation.id
+        show_id = review.show.id
         review.delete()
         messages.success(request, "🗑 Avis supprimé.")
-        return redirect("catalogue:representation-show", representation_id)
+        return redirect("catalogue:show-show", show_id)
 
     return render(request, "review/delete.html", {
         "review": review,
