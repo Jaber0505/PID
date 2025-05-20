@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
-from catalogue.models.show import Show
-from catalogue.forms.show_form import ShowForm
+from catalogue.models import Show
+from catalogue.forms import ShowForm
 
 def index(request):
     shows = Show.objects.all()
@@ -13,11 +13,18 @@ def index(request):
 def show(request, slug):
     show = get_object_or_404(Show, slug=slug)
     representations = show.representations.all()
+    reviews = show.reviews.select_related("user").all()
+
+    user_review = None
+    if request.user.is_authenticated:
+        user_review = reviews.filter(user=request.user).first()
 
     return render(request, "show/show.html", {
         "title": f"🎭 {show.title}",
         "show": show,
         "representations": representations,
+        "reviews": reviews,
+        "user_review": user_review,
     })
 
 def create(request):

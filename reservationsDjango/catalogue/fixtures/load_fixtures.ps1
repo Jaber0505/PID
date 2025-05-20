@@ -1,6 +1,4 @@
-
 # Script PowerShell pour charger les fixtures Django
-
 $fixtures = @(
     "UserFixtures.json",
     "TypeFixtures.json",
