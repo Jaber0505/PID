@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block title %}Détail de la représentation{% endblock %}
+
+{% block content %}
+    <h2>{{ title }}</h2>
+
+    <nav class="form-actions">
+        <a href="{% url 'catalogue:representation-edit' representation.id %}" class="btn btn-success">✏️ Modifier</a>
+        <a href="{% url 'catalogue:representation-delete' representation.id %}" class="btn btn-danger">🗑 Supprimer</a>
+    </nav>
+
+    <h3>{{ representation.show.title }}</h3>
+
+    <ul>
+        <li><strong>Date :</strong> {{ representation.when|date:"d/m/Y H:i" }}</li>
+        <li><strong>Lieu :</strong> {{ representation.location.designation }}</li>
+        <li><strong>Capacité :</strong>{{ representation.places_restantes }} / {{ representation.capacity }}</li>
+    </ul>
+
+    {% if not has_reservation and representation.when > now and representation.places_restantes > 0 %}
+        <nav class="form-actions">
+            <a href="{% url 'catalogue:reservation-create' representation.show.slug %}" class="btn btn-primary">
+                🎟 Réserver cette séance
+            </a>
+        </nav>
+    {% elif representation.places_restantes <= 0 %}
+        <p class="messages warning">❌ Cette séance est complète.</p>
+    {% elif representation.when <= now %}
+        <p class="messages error">⛔ Cette séance est expirée.</p>
+    {% endif %}
+
+    <nav class="form-actions">
+        <a href="{% url 'catalogue:representation-index' %}" class="btn btn-secondary">🔙 Retour à la liste</a>
+    </nav>
+{% endblock %}

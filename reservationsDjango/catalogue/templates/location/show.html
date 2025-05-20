@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block content %}
+<div class="form-actions">
+    <a href="{% url 'catalogue:location-edit' location.id %}" class="btn btn-primary">✏️ Modifier</a>
+    <a href="{% url 'catalogue:location-delete' location.id %}" class="btn btn-danger">🗑 Supprimer</a>
+</div>
+
+<h2>{{ title }}</h2>
+
+<p><strong>Nom :</strong> {{ location.designation }}</p>
+<p><strong>Rue :</strong> {{ location.street }} {{ location.number }}</p>
+<p><strong>Localité :</strong> {{ location.locality }}</p>
+<a href="{% url 'catalogue:location-index' %}" class="btn btn-secondary">🔙 Retour à la liste</a>
+{% endblock %}

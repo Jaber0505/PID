@@ -1,0 +1,144 @@
+[
+  {
+    "model": "catalogue.artist",
+    "pk": 1,
+    "fields": {
+      "first_name": "Danielle",
+      "last_name": "Camus",
+      "types": [
+        [
+          "Chanteur"
+        ]
+      ]
+    }
+  },
+  {
+    "model": "catalogue.artist",
+    "pk": 2,
+    "fields": {
+      "first_name": "Franck",
+      "last_name": "Hernandez",
+      "types": [
+        [
+          "Comédien"
+        ]
+      ]
+    }
+  },
+  {
+    "model": "catalogue.artist",
+    "pk": 3,
+    "fields": {
+      "first_name": "Françoise",
+      "last_name": "Klein",
+      "types": [
+        [
+          "Improvisateur"
+        ],
+        [
+          "Danseur"
+        ]
+      ]
+    }
+  },
+  {
+    "model": "catalogue.artist",
+    "pk": 4,
+    "fields": {
+      "first_name": "Maryse",
+      "last_name": "Denis",
+      "types": [
+        [
+          "Musicien"
+        ]
+      ]
+    }
+  },
+  {
+    "model": "catalogue.artist",
+    "pk": 5,
+    "fields": {
+      "first_name": "Emmanuelle",
+      "last_name": "Le Roux",
+      "types": [
+        [
+          "Comédien"
+        ]
+      ]
+    }
+  },
+  {
+    "model": "catalogue.artist",
+    "pk": 6,
+    "fields": {
+      "first_name": "Sylvie",
+      "last_name": "Gimenez",
+      "types": [
+        [
+          "Mime"
+        ]
+      ]
+    }
+  },
+  {
+    "model": "catalogue.artist",
+    "pk": 7,
+    "fields": {
+      "first_name": "Lucas",
+      "last_name": "Marion",
+      "types": [
+        [
+          "Mime"
+        ],
+        [
+          "Magicien"
+        ]
+      ]
+    }
+  },
+  {
+    "model": "catalogue.artist",
+    "pk": 8,
+    "fields": {
+      "first_name": "Emmanuelle",
+      "last_name": "Coste",
+      "types": [
+        [
+          "Chanteur"
+        ]
+      ]
+    }
+  },
+  {
+    "model": "catalogue.artist",
+    "pk": 9,
+    "fields": {
+      "first_name": "Sébastien",
+      "last_name": "Hebert",
+      "types": [
+        [
+          "Conteuse"
+        ],
+        [
+          "Magicien"
+        ]
+      ]
+    }
+  },
+  {
+    "model": "catalogue.artist",
+    "pk": 10,
+    "fields": {
+      "first_name": "Éric",
+      "last_name": "Godard",
+      "types": [
+        [
+          "Improvisateur"
+        ],
+        [
+          "Humoriste"
+        ]
+      ]
+    }
+  }
+]

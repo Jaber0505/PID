@@ -1,0 +1,160 @@
+[
+  {
+    "model": "catalogue.show",
+    "pk": 1,
+    "fields": {
+      "title": "Le confort d'atteindre vos buts à l'état pur",
+      "slug": "le-confort-datteindre-vos-buts-a-letat-pur",
+      "description": "Lendemain terre entourer leur leur plaisir cour. Tout accuser près quinze énorme entier maison songer. Répondre semaine nécessaire printemps rideau auprès barbe soleil.",
+      "prices": [
+        [
+          "Enfant",
+          "33.36"
+        ]
+      ]
+    }
+  },
+  {
+    "model": "catalogue.show",
+    "pk": 2,
+    "fields": {
+      "title": "L'art d'atteindre vos buts à la pointe",
+      "slug": "lart-datteindre-vos-buts-a-la-pointe",
+      "description": "Mouvement poésie révolution. Voix quinze tantôt court mari nuit saluer jeunesse. Offrir déjà soin ah sous quatre.\nMontrer escalier le dire salle relever fils. Attirer passer centre dur sauter aspect.",
+      "prices": [
+        [
+          "Senior",
+          "37.92"
+        ]
+      ]
+    }
+  },
+  {
+    "model": "catalogue.show",
+    "pk": 3,
+    "fields": {
+      "title": "La liberté de louer plus rapidement",
+      "slug": "la-liberte-de-louer-plus-rapidement",
+      "description": "Corps répéter remplir ça attaquer précis. Part essuyer ceci pointe palais réserver cent tendre. Terre sommet point robe lutte.\nRépandre hier rare. Exemple part vague tâche appartement devant aller.",
+      "prices": [
+        [
+          "Invité",
+          "40.76"
+        ]
+      ]
+    }
+  },
+  {
+    "model": "catalogue.show",
+    "pk": 4,
+    "fields": {
+      "title": "Le droit d'atteindre vos buts à l'état pur",
+      "slug": "le-droit-datteindre-vos-buts-a-letat-pur",
+      "description": "Lequel soi entrée. Avec auteur expérience amener étouffer. Sauter défaut faible.",
+      "prices": [
+        [
+          "Promo",
+          "14.92"
+        ]
+      ]
+    }
+  },
+  {
+    "model": "catalogue.show",
+    "pk": 5,
+    "fields": {
+      "title": "La possibilité de louer plus facilement",
+      "slug": "la-possibilite-de-louer-plus-facilement",
+      "description": "Bonheur naturel chute sur. Revoir enfoncer dernier rappeler. Fauteuil phrase simplement objet fond. Cerveau également général tôt.",
+      "prices": [
+        [
+          "Enfant",
+          "33.36"
+        ]
+      ]
+    }
+  },
+  {
+    "model": "catalogue.show",
+    "pk": 6,
+    "fields": {
+      "title": "Le droit d'avancer naturellement",
+      "slug": "le-droit-davancer-naturellement",
+      "description": "Abattre précéder ouvrage accord égal. Élever oiseau gouvernement ramasser besoin lettre veiller mêler.",
+      "prices": [
+        [
+          "Senior",
+          "37.92"
+        ]
+      ]
+    }
+  },
+  {
+    "model": "catalogue.show",
+    "pk": 7,
+    "fields": {
+      "title": "Le confort d'avancer autrement",
+      "slug": "le-confort-davancer-autrement",
+      "description": "Lutter mouvement parcourir manier fumée. Français rencontrer réserver éclat faute parfaitement ci.\nFoule intelligence ministre également part quel. Jambe poursuivre énorme pensée atteindre.",
+      "prices": [
+        [
+          "Étudiant",
+          "43.03"
+        ]
+      ]
+    }
+  },
+  {
+    "model": "catalogue.show",
+    "pk": 8,
+    "fields": {
+      "title": "L'avantage de rouler en toute tranquilité",
+      "slug": "lavantage-de-rouler-en-toute-tranquilite",
+      "description": "Changer mot continuer habitant prince. Commander glisser sûr habitude honneur président.\nCercle témoin hier résister flamme rideau. Protéger retenir haut courir presser tantôt. Delà barbe considérer.",
+      "prices": [
+        [
+          "Senior",
+          "37.92"
+        ],
+        [
+          "Enfant",
+          "33.36"
+        ]
+      ]
+    }
+  },
+  {
+    "model": "catalogue.show",
+    "pk": 9,
+    "fields": {
+      "title": "L'avantage de concrétiser vos projets naturellement",
+      "slug": "lavantage-de-concretiser-vos-projets-naturellement",
+      "description": "Cruel discuter approcher coeur absolu père changer. Poids vide forêt toi ignorer établir.\nSource rester entraîner image entrer amener approcher falloir. Solitude éternel secours dessus propre.",
+      "prices": [
+        [
+          "Réduit",
+          "41.72"
+        ]
+      ]
+    }
+  },
+  {
+    "model": "catalogue.show",
+    "pk": 10,
+    "fields": {
+      "title": "Le droit de concrétiser vos projets naturellement",
+      "slug": "le-droit-de-concretiser-vos-projets-naturellement",
+      "description": "Avouer blond réfléchir garde. Hauteur avant grand rappeler satisfaire.\nDésormais dangereux seigneur doute.",
+      "prices": [
+        [
+          "Plein tarif",
+          "9.53"
+        ],
+        [
+          "Étudiant",
+          "43.03"
+        ]
+      ]
+    }
+  }
+]

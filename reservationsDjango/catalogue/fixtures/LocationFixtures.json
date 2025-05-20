@@ -1,0 +1,132 @@
+[
+  {
+    "model": "catalogue.location",
+    "pk": 1,
+    "fields": {
+      "designation": "Michel SA",
+      "street": "rue de Seguin",
+      "number": "216",
+      "locality": [
+        "1000",
+        "Prévost-sur-Mer"
+      ]
+    }
+  },
+  {
+    "model": "catalogue.location",
+    "pk": 2,
+    "fields": {
+      "designation": "Ferreira",
+      "street": "boulevard Simon",
+      "number": "22",
+      "locality": [
+        "1001",
+        "Gonzalez"
+      ]
+    }
+  },
+  {
+    "model": "catalogue.location",
+    "pk": 3,
+    "fields": {
+      "designation": "Lacroix",
+      "street": "rue de Potier",
+      "number": "9",
+      "locality": [
+        "1002",
+        "Lemoine"
+      ]
+    }
+  },
+  {
+    "model": "catalogue.location",
+    "pk": 4,
+    "fields": {
+      "designation": "Legendre",
+      "street": "chemin Muller",
+      "number": "51",
+      "locality": [
+        "1003",
+        "Sainte Christelle"
+      ]
+    }
+  },
+  {
+    "model": "catalogue.location",
+    "pk": 5,
+    "fields": {
+      "designation": "Nguyen",
+      "street": "rue Gaudin",
+      "number": "20",
+      "locality": [
+        "1004",
+        "Saint Margaret-les-Bains"
+      ]
+    }
+  },
+  {
+    "model": "catalogue.location",
+    "pk": 6,
+    "fields": {
+      "designation": "Bourgeois",
+      "street": "chemin Nath Lelièvre",
+      "number": "123",
+      "locality": [
+        "1005",
+        "Morel"
+      ]
+    }
+  },
+  {
+    "model": "catalogue.location",
+    "pk": 7,
+    "fields": {
+      "designation": "Renard Le Goff S.A.S.",
+      "street": "rue Jeannine Pichon",
+      "number": "80",
+      "locality": [
+        "1006",
+        "Sainte Virginie-la-Forêt"
+      ]
+    }
+  },
+  {
+    "model": "catalogue.location",
+    "pk": 8,
+    "fields": {
+      "designation": "Colas",
+      "street": "chemin de Delahaye",
+      "number": "56",
+      "locality": [
+        "1007",
+        "Huet-sur-Mer"
+      ]
+    }
+  },
+  {
+    "model": "catalogue.location",
+    "pk": 9,
+    "fields": {
+      "designation": "Guilbert Blot SA",
+      "street": "rue Xavier Rousset",
+      "number": "9",
+      "locality": [
+        "1008",
+        "Humbert-sur-Delorme"
+      ]
+    }
+  },
+  {
+    "model": "catalogue.location",
+    "pk": 10,
+    "fields": {
+      "designation": "Dufour",
+      "street": "avenue Benard",
+      "number": "345",
+      "locality": [
+        "1009",
+        "Lebreton"
+      ]
+    }
+  }
+]

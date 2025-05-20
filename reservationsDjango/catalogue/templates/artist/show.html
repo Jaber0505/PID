@@ -1,0 +1,30 @@
+<!-- catalogue/templates/artist/show.html -->
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="form-actions">
+        <a href="{% url 'catalogue:artist-edit' artist.id %}" class="btn btn-primary">✏️ Modifier</a>
+        <a href="{% url 'catalogue:artist-delete' artist.id %}" class="btn btn-danger">🗑 Supprimer</a>
+    </div>
+    
+    <h2>{% block title %}{{ title }}{% endblock %}</h2>
+
+    <p><strong>Prénom :</strong> {{ artist.first_name }}</p>
+    <p><strong>Nom :</strong> {{ artist.last_name }}</p>
+    <p>
+        <strong>Type d'artiste :</strong>
+        {% if artist.types.all %}
+            <ul>
+                {% for t in artist.types.all %}
+                    <li>{{ t.name }}</li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            ne possède aucun rôle
+        {% endif %}
+    </p>
+
+    <div class="form-actions">
+        <a href="{% url 'catalogue:artist-index' %}" class="btn btn-secondary">🔙 Retour à la liste</a>
+    </div>
+{% endblock %}
