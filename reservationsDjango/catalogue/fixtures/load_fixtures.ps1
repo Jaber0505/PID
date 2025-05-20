@@ -17,5 +17,5 @@ $fixtures = @(
 
 foreach ($fixture in $fixtures) {
     Write-Host "Chargement de $fixture..."
-    python manage.py loaddata $fixture
+    python C:\Users\marwa\ICC\PID\EXAMEN\PROJET\PID\reservationsDjango\manage.py loaddata $fixture
 }
