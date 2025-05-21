@@ -10,3 +10,4 @@ from . import price
 from . import representation
 from . import review
 from . import reservation
+from . import representation_reservation

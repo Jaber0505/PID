@@ -4,12 +4,24 @@ from catalogue.models.show import Show
 class ShowForm(forms.ModelForm):
     class Meta:
         model = Show
-        fields = ["title", "description", "prices"]
+        fields = [
+            "title",
+            "description",
+            "poster_url",
+            "duration",
+            "created_in",
+            "location",
+            "bookable"
+        ]
         labels = {
             "title": "Titre",
             "description": "Description",
-            "prices": "Tarifs associés",
+            "poster_url": "Affiche (URL)",
+            "duration": "Durée (en minutes)",
+            "created_in": "Année de création",
+            "location": "Lieu",
+            "bookable": "Réservable"
         }
         widgets = {
-            "prices": forms.CheckboxSelectMultiple
+            "description": forms.Textarea(attrs={"rows": 4}),
         }

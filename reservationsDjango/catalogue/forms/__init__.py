@@ -9,4 +9,5 @@ from .price_form import PriceForm
 from .representation_form import RepresentationForm
 from .review_form import ReviewForm
 from .reservation_form import ReservationForm
-from .reservation_item_form import ReservationItemForm
+from .representation_reservation_form import RepresentationReservationForm
+from .reservation_multi_tarif_form import MultiTarifReservationForm

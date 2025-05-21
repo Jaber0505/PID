@@ -2,29 +2,30 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.forms import formset_factory
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.utils import timezone
-from catalogue.models import Representation, Reservation, ReservationItem, Price
-from catalogue.forms import ReservationForm, ReservationItemForm
+
+from catalogue.models import Representation, Reservation, RepresentationReservation, Price
+from catalogue.forms import ReservationForm, RepresentationReservationForm
+from account.decorators import role_required
 
 @login_required
 def create(request, slug):
     representation = get_object_or_404(Representation, show__slug=slug)
     authorized_prices = list(representation.show.prices.all())
 
-    ReservationItemFormSet = formset_factory(ReservationItemForm, extra=0, can_delete=False)
+    RepresentationReservationFormSet = formset_factory(RepresentationReservationForm, extra=0, can_delete=False)
     initial_data = [{'price': price, 'quantity': 0} for price in authorized_prices]
 
     # Bloquer les réservations si expirée ou complète
-    if representation.when < timezone.now():
+    if representation.is_expired:
         messages.error(request, "Cette représentation est déjà passée.")
         return redirect("catalogue:representation-show", representation.id)
-    if representation.places_restantes <= 0:
+    if representation.is_full:
         messages.error(request, "Cette représentation est complète.")
         return redirect("catalogue:representation-show", representation.id)
 
     if request.method == 'POST':
         form = ReservationForm(request.POST)
-        formset = ReservationItemFormSet(request.POST)
+        formset = RepresentationReservationFormSet(request.POST)
 
         if Reservation.objects.filter(user=request.user, representation=representation).exists():
             form.add_error(None, "Vous avez déjà une réservation pour cette séance.")
@@ -35,7 +36,7 @@ def create(request, slug):
             reservation.save()
 
             total_places = 0
-            for i, form_item in enumerate(formset):
+            for form_item in formset:
                 price = form_item.cleaned_data.get('price')
                 quantity = form_item.cleaned_data.get('quantity')
 
@@ -45,10 +46,11 @@ def create(request, slug):
                     break
 
                 if quantity and quantity > 0:
-                    ReservationItem.objects.create(
+                    RepresentationReservation.objects.create(
                         reservation=reservation,
                         price=price,
-                        quantity=quantity
+                        quantity=quantity,
+                        representation=representation
                     )
                     total_places += quantity
 
@@ -56,19 +58,18 @@ def create(request, slug):
                 reservation.delete()
                 form.add_error(None, "Veuillez réserver au moins une place.")
             elif not form.errors:
-                reservation.update_status()  # ✅ important ici
+                reservation.update_status()  # important pour le statut
                 return redirect('catalogue:reservation-show', id=reservation.id)
     else:
         form = ReservationForm()
-        formset = ReservationItemFormSet(initial=initial_data)
+        formset = RepresentationReservationFormSet(initial=initial_data)
 
     return render(request, 'reservation/create.html', {
         'representation': representation,
         'form': form,
         'formset': formset,
-        'title': f"Réserver pour {representation.show.title} - {representation.when.strftime('%d/%m/%Y %H:%M')}"
+        'title': f"Réserver pour {representation.show.title} - {representation.schedule.strftime('%d/%m/%Y %H:%M')}"
     })
-
 
 @login_required
 def index(request):
@@ -78,44 +79,48 @@ def index(request):
         'title': "🎟️ Mes réservations"
     })
 
-
 @login_required
 def show(request, id):
     reservation = get_object_or_404(Reservation, id=id, user=request.user)
-    
-    return render(request, 'reservation/show.html', {
-        'reservation': reservation,
-        'title': f"Réservation #{reservation.id} – {reservation.representation.show.title}"
+    items = reservation.representation_items.select_related('price').all()
+    return render(request, "reservation/show.html", {
+        "reservation": reservation,
+        "items": items,
+        "title": f"Réservation #{reservation.id} – {reservation.representation.show.title}"
     })
+
 
 @login_required
 def edit(request, id):
     reservation = get_object_or_404(Reservation, pk=id, user=request.user)
     representation = reservation.representation
 
-    ReservationItemFormSet = formset_factory(ReservationItemForm, extra=0, can_delete=False)
-    authorized_prices = list(representation.show.prices.all())
+    RepresentationReservationFormSet = formset_factory(RepresentationReservationForm, extra=0, can_delete=False)
+
+    # Récupère tous les prix (à adapter selon ta logique métier)
+    authorized_prices = list(Price.objects.all())
 
     if request.method == 'POST':
         form = ReservationForm(request.POST, instance=reservation)
-        formset = ReservationItemFormSet(request.POST)
+        formset = RepresentationReservationFormSet(request.POST)
 
         if form.is_valid() and formset.is_valid():
             total_places = 0
             reservation = form.save(commit=False)
 
-            # Nettoyage des anciens items
-            reservation.items.all().delete()
+            # Supprime les anciens items liés à la réservation
+            reservation.representation_items.all().delete()
 
             for item_form in formset:
                 price = item_form.cleaned_data.get('price')
                 quantity = item_form.cleaned_data.get('quantity')
 
                 if price and price in authorized_prices and quantity and quantity > 0:
-                    ReservationItem.objects.create(
+                    RepresentationReservation.objects.create(
                         reservation=reservation,
                         price=price,
-                        quantity=quantity
+                        quantity=quantity,
+                        representation=representation
                     )
                     total_places += quantity
 
@@ -123,7 +128,7 @@ def edit(request, id):
                 messages.error(request, "Veuillez réserver au moins une place !")
             else:
                 reservation.save()
-                reservation.update_status()  # ✅ ici aussi
+                reservation.update_status()
                 messages.success(request, "Réservation modifiée avec succès.")
                 return redirect('catalogue:reservation-show', id=reservation.id)
     else:
@@ -133,22 +138,23 @@ def edit(request, id):
                 'price': item.price.pk,
                 'quantity': item.quantity,
             }
-            for item in reservation.items.all()
+            for item in reservation.representation_items.all()
         ]
-        formset = ReservationItemFormSet(initial=initial_data)
+        formset = RepresentationReservationFormSet(initial=initial_data)
 
-        for form_item, item in zip(formset.forms, reservation.items.all()):
+        # Préremplit le champ display_price si tu l’utilises dans le form
+        for form_item, item in zip(formset.forms, reservation.representation_items.all()):
             form_item.initial['display_price'] = f"{item.price.type} – {item.price.price:.2f} €"
 
     return render(request, 'reservation/form.html', {
         'form': form,
         'formset': formset,
         'title': f"Modifier la réservation #{reservation.id}",
-        'representation': reservation.representation,
+        'representation': representation,
         'reservation': reservation
     })
 
-
+@role_required("Admin")
 @login_required
 def delete(request, id):
     reservation = get_object_or_404(Reservation, id=id, user=request.user)

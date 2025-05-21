@@ -21,7 +21,7 @@ def show(request, id):
         'representation': representation,
         'has_reservation': has_reservation,
         'now': timezone.now(),
-        'title': f"Détail de la représentation"
+        'title': "Détail de la représentation"
     })
 
 @login_required
@@ -32,7 +32,7 @@ def create(request):
         return redirect('catalogue:representation-index')
     return render(request, 'representation/form.html', {
         'form': form,
-        'title': "Ajouter une représentation"
+        'title': "➕ Ajouter une représentation"
     })
 
 @login_required
@@ -45,7 +45,7 @@ def edit(request, id):
     return render(request, 'representation/form.html', {
         'form': form,
         'representation': representation,
-        'title': f"Modifier la représentation du {representation.when.strftime('%d/%m/%Y %H:%M')}"
+        'title': f"✏️ Modifier la représentation du {representation.schedule.strftime('%d/%m/%Y %H:%M')}"
     })
 
 @login_required
@@ -56,5 +56,5 @@ def delete(request, id):
         return redirect('catalogue:representation-index')
     return render(request, 'representation/delete.html', {
         'representation': representation,
-        'title': f"Supprimer la représentation du {representation.when.strftime('%d/%m/%Y %H:%M')}"
+        'title': f"🗑 Supprimer la représentation du {representation.schedule.strftime('%d/%m/%Y %H:%M')}"
     })

@@ -5,9 +5,17 @@ class PriceManager(models.Manager):
         return self.get(type=type, price=price)
 
 class Price(models.Model):
-    type = models.CharField("Type de tarif", max_length=30)  # ex : Enfant, Étudiant
-    price = models.DecimalField("Montant (€)", max_digits=10, decimal_places=2)
-    description = models.CharField("Description", max_length=255)
+    type = models.CharField(
+        "Type de tarif",
+        max_length=30,
+        help_text="Ex : Enfant, Étudiant, Senior"
+    )
+    price = models.DecimalField(
+        "Montant (€)",
+        max_digits=10,
+        decimal_places=2,
+        help_text="Prix du billet (ex : 12.00)"
+    )
     start_date = models.DateField("Début de validité")
     end_date = models.DateField("Fin de validité")
 
@@ -17,7 +25,13 @@ class Price(models.Model):
         db_table = "prices"
         verbose_name = "Tarif"
         verbose_name_plural = "Tarifs"
-        ordering = ["price"]
+        ordering = ["type"]
+        constraints = [
+            models.UniqueConstraint(
+                fields=["type", "price", "start_date", "end_date"],
+                name="unique_price_type_date_range"
+            )
+        ]
 
     def __str__(self):
         return f"{self.type} – {self.price:.2f} €"

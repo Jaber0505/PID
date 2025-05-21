@@ -4,26 +4,10 @@
 {% block content %}
 <h2>{{ title }}</h2>
 
-<p>
-    <strong>Spectacle :</strong> {{ representation.show.title }}<br>
-    <strong>Date :</strong> {{ representation.when|date:"d/m/Y H:i" }}<br>
-    <strong>Lieu :</strong> {{ representation.location.designation }}
-</p>
-
 <form method="post">
     {% csrf_token %}
     {{ form.as_p }}
-    {{ formset.management_form }}
 
-    {% if form.non_field_errors %}
-        <div class="messages error">
-            {% for error in form.non_field_errors %}
-                ⚠️ {{ error }}
-            {% endfor %}
-        </div>
-    {% endif %}
-
-    <h3>Choisissez vos places :</h3>
     <table class="table">
         <thead>
             <tr>
@@ -32,18 +16,18 @@
             </tr>
         </thead>
         <tbody>
-        {% for form_item in formset %}
+            {% for form_item in formset.forms %}
             <tr>
-                <td>
-                    {{ form_item.display_price }}
-                    {{ form_item.price }}
-                </td>
+                <td>{{ form_item.display_price.value }}</td>
                 <td>
                     {{ form_item.quantity }}
-                    {{ form_item.quantity.errors }}
+                    {{ form_item.price }}
+                    {% if form_item.quantity.errors %}
+                        <div class="text-danger">{{ form_item.quantity.errors }}</div>
+                    {% endif %}
                 </td>
             </tr>
-        {% endfor %}
+            {% endfor %}
         </tbody>
     </table>
 

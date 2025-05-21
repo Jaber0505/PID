@@ -10,6 +10,6 @@
 <form method="post" class="form-actions">
     {% csrf_token %}
     <button type="submit" class="btn btn-danger">🗑 Supprimer</button>
-    <a href="{% url 'catalogue:show-show' show.id %}" class="btn btn-secondary">❌ Annuler</a>
+    <a href="{% url 'catalogue:show-show' show.slug %}" class="btn btn-secondary">❌ Annuler</a>
 </form>
 {% endblock %}

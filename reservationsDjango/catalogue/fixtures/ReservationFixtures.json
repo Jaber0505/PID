@@ -4,10 +4,7 @@
     "pk": 1,
     "fields": {
       "user": ["jab"],
-      "representation": [
-        "le-confort-datteindre-vos-buts-a-letat-pur",
-        "2025-05-19T20:00:00"
-      ],
+      "representation": ["le-confort-datteindre-vos-buts-a-letat-pur", "2025-05-19T20:00:00"],
       "booking_date": "2025-05-19T14:06:56.204546",
       "status": "expirée"
     }
@@ -17,10 +14,7 @@
     "pk": 2,
     "fields": {
       "user": ["zak"],
-      "representation": [
-        "lart-datteindre-vos-buts-a-la-pointe",
-        "2025-05-20T20:00:00"
-      ],
+      "representation": ["lart-datteindre-vos-buts-a-la-pointe", "2025-05-20T20:00:00"],
       "booking_date": "2025-05-19T14:06:56.204562",
       "status": "complète"
     }
@@ -30,10 +24,7 @@
     "pk": 3,
     "fields": {
       "user": ["souf"],
-      "representation": [
-        "la-liberte-de-louer-plus-rapidement",
-        "2025-05-21T20:00:00"
-      ],
+      "representation": ["la-liberte-de-louer-plus-rapidement", "2025-05-21T20:00:00"],
       "booking_date": "2025-05-19T14:06:56.204567",
       "status": "ouverte"
     }
@@ -43,10 +34,7 @@
     "pk": 4,
     "fields": {
       "user": ["you"],
-      "representation": [
-        "le-droit-datteindre-vos-buts-a-letat-pur",
-        "2025-05-22T20:00:00"
-      ],
+      "representation": ["le-droit-datteindre-vos-buts-a-letat-pur", "2025-05-22T20:00:00"],
       "booking_date": "2025-05-19T14:06:56.204571",
       "status": "complète"
     }
@@ -56,10 +44,7 @@
     "pk": 5,
     "fields": {
       "user": ["jab"],
-      "representation": [
-        "le-droit-datteindre-vos-buts-a-letat-pur",
-        "2025-05-22T20:00:00"
-      ],
+      "representation": ["le-droit-datteindre-vos-buts-a-letat-pur", "2025-05-22T20:00:00"],
       "booking_date": "2025-05-19T14:06:56.204571",
       "status": "complète"
     }
@@ -69,10 +54,7 @@
     "pk": 6,
     "fields": {
       "user": ["red"],
-      "representation": [
-        "la-possibilite-de-louer-plus-facilement",
-        "2025-05-23T20:00:00"
-      ],
+      "representation": ["la-possibilite-de-louer-plus-facilement", "2025-05-23T20:00:00"],
       "booking_date": "2025-05-19T14:06:56.204575",
       "status": "complète"
     }

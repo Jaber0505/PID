@@ -10,7 +10,7 @@
     {% for price in prices %}
         <li>
             <a href="{% url 'catalogue:price-show' price.id %}">
-                {{ price.type }} – {{ price.price }} €
+                {{ price.type }} – {{ price.price|floatformat:2 }} €
             </a>
         </li>
     {% empty %}

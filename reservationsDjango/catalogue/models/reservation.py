@@ -1,16 +1,17 @@
 from django.db import models
-from django.utils import timezone
+from django.contrib.auth import get_user_model
+
 from .representation import Representation
 
-from django.contrib.auth import get_user_model
 User = get_user_model()
+MAX_CAPACITY = 100  # ou à importer depuis settings si besoin
 
 class ReservationManager(models.Manager):
-    def get_by_natural_key(self, username, representation_slug, when):
+    def get_by_natural_key(self, username, representation_slug, schedule):
         return self.get(
             user__username=username,
             representation__show__slug=representation_slug,
-            representation__when=when
+            representation__schedule=schedule
         )
 
 class Reservation(models.Model):
@@ -59,9 +60,9 @@ class Reservation(models.Model):
         return sum(item.quantity for item in self.items.all())
 
     def update_status(self):
-        if self.representation.when < timezone.now():
+        if self.representation.is_expired:
             self.status = "expirée"
-        elif self.representation.places_restantes <= 0:
+        elif self.representation.capacity_used >= MAX_CAPACITY:
             self.status = "complète"
         else:
             self.status = "ouverte"
@@ -71,7 +72,7 @@ class Reservation(models.Model):
         return (
             self.user.username,
             self.representation.show.slug,
-            self.representation.when,
+            self.representation.schedule,
         )
     
     natural_key.dependencies = ['account.user', 'catalogue.representation']

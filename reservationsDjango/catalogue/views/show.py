@@ -4,7 +4,7 @@ from catalogue.models import Show, ArtistTypeShow
 from catalogue.forms import ShowForm
 
 def index(request):
-    shows = Show.objects.all()
+    shows = Show.objects.select_related("location").all()
     return render(request, "show/index.html", {
         "title": "🎬 Films",
         "shows": shows,
@@ -49,32 +49,32 @@ def create(request):
     })
 
 def edit(request, slug):
-    show_obj = get_object_or_404(Show, slug=slug)
+    show = get_object_or_404(Show, slug=slug)
 
     if request.method == "POST":
-        form = ShowForm(request.POST, instance=show_obj)
+        form = ShowForm(request.POST, instance=show)
         if form.is_valid():
             form.save()
             messages.success(request, "✅ Spectacle modifié avec succès.")
             return redirect("catalogue:show-show", form.instance.slug)
         messages.error(request, "❌ Erreur lors de la modification.")
     else:
-        form = ShowForm(instance=show_obj)
+        form = ShowForm(instance=show)
 
     return render(request, "show/form.html", {
         "form": form,
-        "title": f"✏️ Modifier : {show_obj.title}",
+        "title": f"✏️ Modifier : {show.title}",
     })
 
 def delete(request, slug):
-    show_obj = get_object_or_404(Show, slug=slug)
+    show = get_object_or_404(Show, slug=slug)
 
     if request.method == "POST":
-        show_obj.delete()
+        show.delete()
         messages.success(request, "🗑 Spectacle supprimé avec succès.")
         return redirect("catalogue:show-index")
 
     return render(request, "show/delete.html", {
-        "show": show_obj,
-        "title": f"🗑 Supprimer : {show_obj.title}",
+        "show": show,
+        "title": f"🗑 Supprimer : {show.title}",
     })

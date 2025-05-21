@@ -13,23 +13,25 @@ class ArtistType(models.Model):
     artist = models.ForeignKey(
         "Artist",
         on_delete=models.CASCADE,
-        related_name="artist_types",
+        related_name="artiste_type",
         verbose_name="Artiste"
     )
     type = models.ForeignKey(
         "Type",
         on_delete=models.CASCADE,
-        related_name="artist_types",
+        related_name="artiste_type",
         verbose_name="Type"
     )
 
     objects = ArtistTypeManager()
 
     class Meta:
-        db_table = "artist_types"
+        db_table = "artiste_type"
         verbose_name = "Association artiste/type"
         verbose_name_plural = "Associations artiste/type"
-        unique_together = ("artist", "type")
+        constraints = [
+            models.UniqueConstraint(fields=["artist", "type"], name="unique_artist_type")
+        ]
 
     def __str__(self):
         return f"{self.artist} – {self.type}"

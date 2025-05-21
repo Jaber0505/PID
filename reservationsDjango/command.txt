@@ -76,3 +76,24 @@ python manage.py runserver
 #########################################################
 python manage.py flush
 
+###########################################
+## Attribuer un role à un user via shell ##
+###########################################
+python manage.py shell
+
+from account.models import CustomUser, Role, RoleUser
+
+# Récupérer un utilisateur
+user = CustomUser.objects.get(username='ton_username')
+
+# Récupérer un rôle
+role = Role.objects.get(role='Admin')  # ou 'Organisateur', etc.
+
+# Créer la liaison utilisateur-rôle
+RoleUser.objects.create(user=user, role=role)
+
+# Ou avec ManyToMany (si tu utilises le champ roles)
+user.roles.add(role)
+user.save()
+
+

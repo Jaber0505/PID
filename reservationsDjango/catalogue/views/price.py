@@ -13,20 +13,18 @@ def index(request):
 def show(request, price_id):
     price = get_object_or_404(Price, pk=price_id)
     return render(request, "price/show.html", {
-        "title": f"Tarif : {price.price} €",
+        "title": f"Tarif : {price.type} – {price.price:.2f} €",
         "price": price,
     })
 
 def create(request):
+    form = PriceForm(request.POST or None)
     if request.method == "POST":
-        form = PriceForm(request.POST)
         if form.is_valid():
             form.save()
             messages.success(request, "✅ Tarif créé avec succès.")
             return redirect("catalogue:price-index")
         messages.error(request, "❌ Erreur lors de la création.")
-    else:
-        form = PriceForm()
 
     return render(request, "price/form.html", {
         "form": form,
@@ -35,15 +33,13 @@ def create(request):
 
 def edit(request, price_id):
     price = get_object_or_404(Price, pk=price_id)
+    form = PriceForm(request.POST or None, instance=price)
     if request.method == "POST":
-        form = PriceForm(request.POST, instance=price)
         if form.is_valid():
             form.save()
             messages.success(request, "✅ Tarif modifié.")
             return redirect("catalogue:price-index")
         messages.error(request, "❌ Erreur lors de la modification.")
-    else:
-        form = PriceForm(instance=price)
 
     return render(request, "price/form.html", {
         "form": form,

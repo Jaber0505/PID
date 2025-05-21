@@ -4,11 +4,10 @@ from catalogue.models.price import Price
 class PriceForm(forms.ModelForm):
     class Meta:
         model = Price
-        fields = ["type", "price", "description", "start_date", "end_date"]
+        fields = ["type", "price", "start_date", "end_date"]
         labels = {
             "type": "Type de tarif",
             "price": "Montant (€)",
-            "description": "Description",
             "start_date": "Début de validité",
             "end_date": "Fin de validité",
         }

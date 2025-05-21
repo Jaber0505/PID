@@ -4,15 +4,8 @@
     "pk": 1,
     "fields": {
       "show": ["le-confort-datteindre-vos-buts-a-letat-pur"],
-      "when": "2025-05-19T20:00:00",
-      "location": [
-        "Michel SA",
-        "rue de Seguin",
-        "216",
-        "1000",
-        "Prévost-sur-Mer"
-      ],
-      "capacity": 67
+      "schedule": "2025-05-19T20:00:00",
+      "location": ["michel-sa", "https://michel-sa.com"]
     }
   },
   {
@@ -20,15 +13,8 @@
     "pk": 2,
     "fields": {
       "show": ["lart-datteindre-vos-buts-a-la-pointe"],
-      "when": "2025-05-20T20:00:00",
-      "location": [
-        "Ferreira",
-        "boulevard Simon",
-        "22",
-        "1001",
-        "Gonzalez"
-      ],
-      "capacity": 106
+      "schedule": "2025-05-20T20:00:00",
+      "location": ["ferreira", "https://ferreira.be"]
     }
   },
   {
@@ -36,15 +22,8 @@
     "pk": 3,
     "fields": {
       "show": ["la-liberte-de-louer-plus-rapidement"],
-      "when": "2025-05-21T20:00:00",
-      "location": [
-        "Lacroix",
-        "rue de Potier",
-        "9",
-        "1002",
-        "Lemoine"
-      ],
-      "capacity": 68
+      "schedule": "2025-05-21T20:00:00",
+      "location": ["lacroix", "https://lacroix.be"]
     }
   },
   {
@@ -52,15 +31,8 @@
     "pk": 4,
     "fields": {
       "show": ["le-droit-datteindre-vos-buts-a-letat-pur"],
-      "when": "2025-05-22T20:00:00",
-      "location": [
-        "Legendre",
-        "chemin Muller",
-        "51",
-        "1003",
-        "Sainte Christelle"
-      ],
-      "capacity": 215
+      "schedule": "2025-05-22T20:00:00",
+      "location": ["legendre", "https://legendre.org"]
     }
   },
   {
@@ -68,15 +40,8 @@
     "pk": 5,
     "fields": {
       "show": ["la-possibilite-de-louer-plus-facilement"],
-      "when": "2025-05-23T20:00:00",
-      "location": [
-        "Nguyen",
-        "rue Gaudin",
-        "20",
-        "1004",
-        "Saint Margaret-les-Bains"
-      ],
-      "capacity": 127
+      "schedule": "2025-05-23T20:00:00",
+      "location": ["nguyen", "https://nguyen.be"]
     }
   }
 ]

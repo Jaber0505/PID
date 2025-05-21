@@ -10,8 +10,8 @@
 <ul>
     {% for location in locations %}
         <li>
-            <a href="{% url 'catalogue:location-show' location.id %}">
-                {{ location.designation }} ({{ location.locality }})
+            <a href="{% url 'catalogue:location-show' location.slug %}">
+                {{ location.designation }} – {{ location.locality }}
             </a>
         </li>
     {% empty %}

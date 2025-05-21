@@ -2,8 +2,6 @@
 {% block title %}{{ title }}{% endblock %}
 
 {% block content %}
-
-    <!-- 🔧 Boutons d’administration -->
     <div class="form-actions">
         <a href="{% url 'catalogue:show-edit' show.slug %}" class="btn btn-primary">✏️ Modifier</a>
         <a href="{% url 'catalogue:show-delete' show.slug %}" class="btn btn-danger">🗑 Supprimer</a>
@@ -11,30 +9,27 @@
 
     <h2>{{ title }}</h2>
 
+    {% if show.poster_url %}
+        <img src="{{ show.poster_url }}" alt="Affiche" style="max-width: 300px;">
+    {% endif %}
+
     <p><strong>Titre :</strong> {{ show.title }}</p>
     <p><strong>Description :</strong><br>{{ show.description|linebreaks }}</p>
+    <p><strong>Durée :</strong> {{ show.duration }} minutes</p>
+    <p><strong>Année de création :</strong> {{ show.created_in }}</p>
+    <p><strong>Lieu :</strong> {{ show.location.designation }}</p>
+    <p><strong>Réservable :</strong> {{ show.bookable|yesno:"Oui,Non" }}</p>
 
     <hr>
 
-    <!-- 💰 Tarifs -->
-    <h3>Tarifs</h3>
-    <ul>
-        {% for price in show.prices.all %}
-            <li><a href="{% url 'catalogue:price-show' price.id %}">{{ price.type }} - {{ price.price }} €</a></li>
-        {% empty %}
-            <li>Aucun tarif défini</li>
-        {% endfor %}
-    </ul>
-
-    <hr>
-
-    <!-- 📅 Représentations -->
     <h3>📅 Représentations à venir</h3>
     {% if representations %}
         <ul>
             {% for rep in representations %}
                 <li>
-                    <a href="{% url 'catalogue:representation-show' rep.id %}">🕒 {{ rep.when|date:"d/m/Y H:i" }} - ({{ rep.location.designation }})</a>
+                    <a href="{% url 'catalogue:representation-show' rep.id %}">
+                        🕒 {{ rep.schedule|date:"d/m/Y H:i" }} – {{ rep.location.designation }}
+                    </a>
                 </li>
             {% endfor %}
         </ul>
@@ -44,9 +39,7 @@
 
     <hr>
 
-    <!-- ⭐ Avis utilisateurs -->
     <h3>⭐ Avis des spectateurs</h3>
-
     {% if reviews %}
         <ul>
             {% for review in reviews %}
@@ -57,10 +50,9 @@
             {% endfor %}
         </ul>
     {% else %}
-        <p>Aucun avis pour ce film.</p>
+        <p>Aucun avis pour ce spectacle.</p>
     {% endif %}
 
-    <!-- 🧍 Actions utilisateur -->
     {% if user.is_authenticated %}
         <div class="form-actions" style="margin-top: 1em;">
             {% if user_review %}
@@ -74,10 +66,14 @@
 
     <hr>
 
-    <h3>👥 Artistes associés à ce spectacle</h3>
+    <h3>👥 Artistes associés</h3>
     <ul>
         {% for link in participations %}
-            <li><a href="{% url 'catalogue:artist-show' link.artist_type.artist.id %}">{{ link.artist_type.artist }}</a> ({{ link.artist_type.type }})</li>
+            <li>
+                <a href="{% url 'catalogue:artist-show' link.artist_type.artist.id %}">
+                    {{ link.artist_type.artist }}
+                </a> ({{ link.artist_type.type }})
+            </li>
         {% empty %}
             <li>Aucun artiste assigné.</li>
         {% endfor %}
@@ -88,5 +84,4 @@
     <div class="form-actions">
         <a href="{% url 'catalogue:show-index' %}" class="btn btn-secondary">🔙 Retour à la liste</a>
     </div>
-
 {% endblock %}

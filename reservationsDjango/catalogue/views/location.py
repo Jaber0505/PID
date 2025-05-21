@@ -11,10 +11,10 @@ def index(request):
         "locations": locations,
     })
 
-def show(request, location_id):
-    location = get_object_or_404(Location, pk=location_id)
+def show(request, slug):
+    location = get_object_or_404(Location, slug=slug)
     return render(request, "location/show.html", {
-        "title": f"Fiche lieu : {location}",
+        "title": f"Fiche lieu : {location.designation}",
         "location": location,
     })
 
@@ -25,7 +25,8 @@ def create(request):
             form.save()
             messages.success(request, "✅ Lieu ajouté avec succès.")
             return redirect("catalogue:location-index")
-        messages.error(request, "❌ Erreur lors de la création.")
+        else:
+            messages.error(request, "❌ Erreur lors de la création du lieu.")
     else:
         form = LocationForm()
 
@@ -34,26 +35,27 @@ def create(request):
         "title": "➕ Ajouter un lieu",
     })
 
-def edit(request, location_id):
-    location = get_object_or_404(Location, pk=location_id)
+def edit(request, slug):
+    location = get_object_or_404(Location, slug=slug)
 
     if request.method == "POST":
         form = LocationForm(request.POST, instance=location)
         if form.is_valid():
             form.save()
             messages.success(request, "✅ Lieu modifié avec succès.")
-            return redirect("catalogue:location-show", form.instance.id)
-        messages.error(request, "❌ Erreur lors de la modification.")
+            return redirect("catalogue:location-show", location.slug)
+        else:
+            messages.error(request, "❌ Erreur lors de la modification du lieu.")
     else:
         form = LocationForm(instance=location)
 
     return render(request, "location/form.html", {
         "form": form,
-        "title": f"✏️ Modifier : {location}",
+        "title": f"✏️ Modifier : {location.designation}",
     })
 
-def delete(request, location_id):
-    location = get_object_or_404(Location, pk=location_id)
+def delete(request, slug):
+    location = get_object_or_404(Location, slug=slug)
 
     if request.method == "POST":
         try:
@@ -62,9 +64,9 @@ def delete(request, location_id):
             return redirect("catalogue:location-index")
         except (ProtectedError, RestrictedError):
             messages.error(request, "❌ Ce lieu est utilisé dans une représentation. Suppression impossible.")
-            return redirect("catalogue:location-show", location.id)
+            return redirect("catalogue:location-show", location.slug)
 
     return render(request, "location/delete.html", {
         "location": location,
-        "title": f"🗑 Supprimer : {location}",
+        "title": f"🗑 Supprimer : {location.designation}",
     })

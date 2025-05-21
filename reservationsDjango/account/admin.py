@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
-from .models import CustomUser
+from .models import CustomUser, Role, RoleUser
 
 @admin.register(CustomUser)
 class CustomUserAdmin(UserAdmin):
@@ -52,3 +52,12 @@ class CustomUserAdmin(UserAdmin):
     @admin.display(description="Dernière connexion")
     def last_login_display(self, obj):
         return obj.last_login.strftime("%d/%m/%Y %H:%M") if obj.last_login else "Jamais"
+    
+    @admin.register(Role)
+    class RoleAdmin(admin.ModelAdmin):
+        list_display = ('role',)
+
+    @admin.register(RoleUser)
+    class RoleUserAdmin(admin.ModelAdmin):
+        list_display = ('user', 'role')
+        list_filter = ('role',)

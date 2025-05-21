@@ -10,8 +10,7 @@
 <h2>{{ title }}</h2>
 
 <p><strong>Type de tarif :</strong> {{ price.type }}</p>
-<p><strong>Montant :</strong> {{ price.price }} €</p>
-<p><strong>Description :</strong> {{ price.description }}</p>
+<p><strong>Montant :</strong> {{ price.price|floatformat:2 }} €</p>
 <p><strong>Période de validité :</strong> du {{ price.start_date }} au {{ price.end_date }}</p>
 
 <div class="form-actions">
