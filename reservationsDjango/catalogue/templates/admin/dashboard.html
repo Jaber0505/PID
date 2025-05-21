@@ -1,8 +1,9 @@
 {% extends "base.html" %}
-
+{% load role_tags %}
 {% block title %}{{ title }}{% endblock %}
 
 {% block content %}
+{% with current_role=role_users|get_user_role_name:user %}
 <h2>{{ title }}</h2>
 
 <style>
@@ -75,13 +76,16 @@
     <tr>
       <th>Nom</th>
       <th>Email</th>
-      <th>Rôle</th>
+      {% if current_role == 'admin' %}
+        <th>Rôle</th>
+      {% endif %}
       <th>Actions</th>
     </tr>
     {% for user in users %}
       <tr>
         <td>{{ user.username }}</td>
         <td>{{ user.email }}</td>
+        {% if current_role == 'admin' %}
         <td>
           <form method="post" action="{% url 'catalogue:admin-assign-role' %}" class="inline">
             {% csrf_token %}
@@ -89,12 +93,13 @@
             <select name="role_id">
               <option value="">Aucun</option>
               {% for role in roles %}
-                <option value="{{ role.id }}" {% if user.roleuser.role.id == role.id %}selected{% endif %}>{{ role.name }}</option>
+                <option value="{{ role.id }}" {% if role.id == role_users|get_user_role_id:user %}selected{% endif %}>{{ role.name }}</option>
               {% endfor %}
             </select>
             <button class="btn-primary" type="submit">✔</button>
           </form>
         </td>
+        {% endif %}
         <td>
           {% if not user.is_superuser %}
           <form method="post" action="{% url 'catalogue:admin-delete-user' user.id %}" class="inline">
@@ -140,7 +145,8 @@
   </table>
 </details>
 
-<!-- Création de rôles -->
+<!-- Création et suppression de rôles -->
+{% if current_role == 'admin' %}
 <details class="admin-section">
   <summary>➕ Gérer les rôles</summary>
   <form method="post" action="{% url 'catalogue:admin-create-role' %}" style="padding: 15px;">
@@ -169,5 +175,7 @@
     {% endfor %}
   </table>
 </details>
+{% endif %}
 
+{% endwith %}
 {% endblock %}

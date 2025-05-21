@@ -5,11 +5,12 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import get_user_model
 from catalogue.models.review import Review
 from account.roles import RoleUser,Role
+from account.decorators import roles_required
 
 User = get_user_model()
 
 
-@staff_member_required
+@roles_required('admin','moderator')
 def dashboard(request):
     users = User.objects.all()
     reviews = Review.objects.all()
@@ -24,7 +25,7 @@ def dashboard(request):
         "roles": roles,
     })
 
-@staff_member_required
+@roles_required('admin', 'moderator')
 @require_POST
 def delete_user(request, user_id):
     user = get_object_or_404(User, pk=user_id)
@@ -32,7 +33,7 @@ def delete_user(request, user_id):
         user.delete()
     return redirect("catalogue:admin-dashboard")
 
-@staff_member_required
+@roles_required('admin', 'moderator')
 @require_POST
 def delete_review(request, review_id):
     review = get_object_or_404(Review, pk=review_id)
@@ -40,7 +41,7 @@ def delete_review(request, review_id):
     return redirect("catalogue:admin-dashboard")
 
 
-@staff_member_required
+@roles_required('admin', 'moderator')
 @require_POST
 def create_role(request):
     name = request.POST.get("name", "").strip()
@@ -48,24 +49,28 @@ def create_role(request):
         Role.objects.get_or_create(name=name)
     return redirect("catalogue:admin-dashboard")
 
-@staff_member_required
+@roles_required('admin', 'moderator')
 @require_POST
 def delete_role(request, role_id):
     role = get_object_or_404(Role, pk=role_id)
     role.delete()
     return redirect("catalogue:admin-dashboard")
 
-@staff_member_required
+@roles_required('admin', 'moderator')
 @require_POST
 def assign_role_to_user(request):
     user_id = request.POST.get("user_id")
     role_id = request.POST.get("role_id")
 
-    if user_id and role_id:
+    if user_id:
         user = get_object_or_404(User, pk=user_id)
-        role = get_object_or_404(Role, pk=role_id)
 
-        # Évite les doublons
-        RoleUser.objects.get_or_create(user=user, role=role)
+        # Supprimer tous les rôles existants
+        RoleUser.objects.filter(user=user).delete()
+
+        # Si un rôle est sélectionné (non vide), l'assigner
+        if role_id:
+            role = get_object_or_404(Role, pk=role_id)
+            RoleUser.objects.create(user=user, role=role)
 
     return redirect("catalogue:admin-dashboard")
