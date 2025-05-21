@@ -1,6 +1,7 @@
 from django.contrib import admin
 from .models import Artist, Type, Locality, Show, Location, Price, Representation, Review, Reservation, ReservationItem
 
+
 admin.site.register(Price)
 admin.site.register(Show)
 admin.site.register(Artist)

@@ -1,4 +1,5 @@
 from django.urls import path
+from catalogue.views import admin as admin_views
 from . import views
 
 app_name = "catalogue"
@@ -64,4 +65,14 @@ urlpatterns = [
     path("reservation/<int:id>/edit/", views.reservation.edit, name="reservation-edit"),
     path("reservation/<int:id>/delete/", views.reservation.delete, name="reservation-delete"),
     path('reservation//<slug:slug>/create', views.reservation.create, name='reservation-create'),
+    
+    #admin view
+    path("admin-panel/", admin_views.dashboard, name="admin-dashboard"),
+    path("admin-panel/user/<int:user_id>/delete/", admin_views.delete_user, name="admin-delete-user"),
+    path("admin-panel/review/<int:review_id>/delete/", admin_views.delete_review, name="admin-delete-review"),
+    
+    #Role admin view
+    path("admin-panel/roles/create/", admin_views.create_role, name="admin-create-role"),
+    path("admin-panel/roles/delete/<int:role_id>/", admin_views.delete_role, name="admin-delete-role"),
+    path("admin-panel/roles/assign/", admin_views.assign_role_to_user, name="admin-assign-role"),
 ]

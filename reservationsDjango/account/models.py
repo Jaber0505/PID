@@ -1,5 +1,6 @@
 from django.contrib.auth.models import AbstractUser, UserManager
 from django.db import models
+from .roles import Role, RoleUser
 
 class CustomUserManager(UserManager):
     def get_by_natural_key(self, username):

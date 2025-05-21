@@ -10,7 +10,7 @@
 <ul>
     {% for show in shows %}
         <li>
-            <a href="{% url 'catalogue:' show.slug %}">
+            <a href="{% url 'catalogue:show-show' show.slug %}">
                 {{ show.title }}
             </a>
         </li>
