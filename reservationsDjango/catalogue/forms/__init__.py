@@ -1,4 +1,6 @@
 from .artist_form import ArtistForm
+from .artist_type_form import ArtistTypeForm
+from .artist_type_show_form import ArtistTypeShowForm
 from .type_form import TypeForm
 from .locality_form import LocalityForm
 from .show_form import ShowForm

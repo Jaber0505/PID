@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
-from catalogue.models import Show
+from catalogue.models import Show, ArtistTypeShow
 from catalogue.forms import ShowForm
 
 def index(request):
@@ -15,6 +15,10 @@ def show(request, slug):
     representations = show.representations.all()
     reviews = show.reviews.select_related("user").all()
 
+    participations = ArtistTypeShow.objects.filter(show=show).select_related(
+        "artist_type__artist", "artist_type__type"
+    )
+
     user_review = None
     if request.user.is_authenticated:
         user_review = reviews.filter(user=request.user).first()
@@ -25,6 +29,7 @@ def show(request, slug):
         "representations": representations,
         "reviews": reviews,
         "user_review": user_review,
+        "participations": participations
     })
 
 def create(request):

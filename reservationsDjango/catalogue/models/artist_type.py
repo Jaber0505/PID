@@ -1,6 +1,14 @@
 from django.db import models
 from catalogue.models import artist, type
 
+class ArtistTypeManager(models.Manager):
+    def get_by_natural_key(self, first_name, last_name, type_name):
+        return self.get(
+            artist__first_name=first_name,
+            artist__last_name=last_name,
+            type__name=type_name
+        )
+
 class ArtistType(models.Model):
     artist = models.ForeignKey(
         "Artist",
@@ -15,6 +23,8 @@ class ArtistType(models.Model):
         verbose_name="Type"
     )
 
+    objects = ArtistTypeManager()
+
     class Meta:
         db_table = "artist_types"
         verbose_name = "Association artiste/type"
@@ -22,4 +32,9 @@ class ArtistType(models.Model):
         unique_together = ("artist", "type")
 
     def __str__(self):
-        return f"{self.artist} ({self.type})"
+        return f"{self.artist} – {self.type}"
+
+    def natural_key(self):
+        return self.artist.natural_key() + self.type.natural_key()
+
+    natural_key.dependencies = ["catalogue.artist", "catalogue.type"]

@@ -7,6 +7,8 @@ $fixtures = @(
     "LocationFixtures.json",
     "PriceFixtures.json",
     "ShowFixtures.json",
+    "ArtistTypeFixtures.json",
+    "ArtistTypeShowFixtures.json",
     "RepresentationFixtures.json",
     "ReviewFixtures.json",
     "ReservationFixtures.json",

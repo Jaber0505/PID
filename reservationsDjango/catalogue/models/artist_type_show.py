@@ -1,6 +1,15 @@
 from django.db import models
 from catalogue.models import Show, ArtistType
 
+class ArtistTypeShowManager(models.Manager):
+    def get_by_natural_key(self, first_name, last_name, type_name, show_slug):
+        return self.get(
+            artist_type__artist__first_name=first_name,
+            artist_type__artist__last_name=last_name,
+            artist_type__type__name=type_name,
+            show__slug=show_slug
+        )
+
 class ArtistTypeShow(models.Model):
     artist_type = models.ForeignKey(
         "ArtistType",
@@ -15,6 +24,8 @@ class ArtistTypeShow(models.Model):
         verbose_name="Spectacle"
     )
 
+    objects = ArtistTypeShowManager()
+
     class Meta:
         db_table = "artist_type_show"
         verbose_name = "Participation artistique"
@@ -23,3 +34,8 @@ class ArtistTypeShow(models.Model):
 
     def __str__(self):
         return f"{self.artist_type} dans « {self.show.title} »"
+
+    def natural_key(self):
+        return self.artist_type.natural_key() + (self.show.slug,)
+
+    natural_key.dependencies = ["catalogue.artisttype", "catalogue.show"]

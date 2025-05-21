@@ -24,6 +24,28 @@
         {% endif %}
     </p>
 
+    <hr>
+
+    <h3>🧑‍🎨 Types de {{ artist }}</h3>
+        <ul>
+            {% for at in types %}
+                <li>{{ at.type }}</li>
+            {% empty %}
+                <li>Aucun type enregistrée.</li>
+            {% endfor %}
+        </ul>
+
+        <h3>🎬 Participations artistiques</h3>
+        <ul>
+            {% for link in participations %}
+                <li><a href="{% url 'catalogue:show-show' link.show.slug %}">{{ link.show.title }}</a></li>
+            {% empty %}
+                <li>Aucune participation enregistrée.</li>
+            {% endfor %}
+        </ul>
+
+    <hr>
+
     <div class="form-actions">
         <a href="{% url 'catalogue:artist-index' %}" class="btn btn-secondary">🔙 Retour à la liste</a>
     </div>

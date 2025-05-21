@@ -64,4 +64,16 @@ urlpatterns = [
     path("reservation/<int:id>/edit/", views.reservation.edit, name="reservation-edit"),
     path("reservation/<int:id>/delete/", views.reservation.delete, name="reservation-delete"),
     path('reservation//<slug:slug>/create', views.reservation.create, name='reservation-create'),
+
+    # Artist_Type
+    path("artist-type/", views.artist_type.index, name="artist-type-index"),
+    path("artist-type/create/", views.artist_type.create, name="artist-type-create"),
+    path("artist-type/<int:id>/edit/", views.artist_type.edit, name="artist-type-edit"),
+    path("artist-type/<int:id>/delete/", views.artist_type.delete, name="artist-type-delete"),
+
+    # Artist_Type_Show
+    path("artist-type-show/", views.artist_type_show.index, name="artist-type-show-index"),
+    path("artist-type-show/create/", views.artist_type_show.create, name="artist-type-show-create"),
+    path("artist-type-show/<int:id>/edit/", views.artist_type_show.edit, name="artist-type-show-edit"),
+    path("artist-type-show/<int:id>/delete/", views.artist_type_show.delete, name="artist-type-show-delete"),
 ]

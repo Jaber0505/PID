@@ -74,6 +74,17 @@
 
     <hr>
 
+    <h3>👥 Artistes associés à ce spectacle</h3>
+    <ul>
+        {% for link in participations %}
+            <li><a href="{% url 'catalogue:artist-show' link.artist_type.artist.id %}">{{ link.artist_type.artist }}</a> ({{ link.artist_type.type }})</li>
+        {% empty %}
+            <li>Aucun artiste assigné.</li>
+        {% endfor %}
+    </ul>
+
+    <hr>
+
     <div class="form-actions">
         <a href="{% url 'catalogue:show-index' %}" class="btn btn-secondary">🔙 Retour à la liste</a>
     </div>

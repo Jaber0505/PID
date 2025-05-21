@@ -1,4 +1,6 @@
 from . import artist
+from . import artist_type
+from . import artist_type_show
 from . import home
 from . import type
 from . import locality

@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib import messages
 
-from catalogue.models import Artist
+from catalogue.models import Artist, Type, ArtistType, ArtistTypeShow
 from catalogue.forms import ArtistForm
 
 def index(request):
@@ -12,11 +12,20 @@ def index(request):
     })
 
 def show(request, artist_id):
-    artist = get_object_or_404(Artist, id=artist_id)
-    return render(request, 'artist/show.html', {
-        'artist': artist,
-        'title': f"👤 L'artiste {artist.first_name} {artist.last_name}"
+    artist = get_object_or_404(Artist, pk=artist_id)
+    types = artist.artist_types.select_related("type")
+
+    participations = ArtistTypeShow.objects.filter(artist_type__artist=artist).select_related(
+        "artist_type__type", "show"
+    )
+
+    return render(request, "artist/show.html", {
+        "artist": artist,
+        "types": types,
+        "participations": participations,
+        "title": f"🎭 {artist}"
     })
+
 
 def create(request):
     if request.method == "POST":

@@ -1,8 +1,14 @@
 from django.db import models
 
+class ArtistManager(models.Manager):
+    def get_by_natural_key(self, first_name, last_name):
+        return self.get(first_name=first_name, last_name=last_name)
+
 class Artist(models.Model):
     first_name = models.CharField("Prénom", max_length=100)
     last_name = models.CharField("Nom", max_length=100)
+
+    objects = ArtistManager()
 
     class Meta:
         db_table = "artists"
