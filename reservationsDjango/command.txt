@@ -74,5 +74,5 @@ python manage.py runserver
 #########################################################
 ## Supprimer toutes les données dans la base de donnée ##
 #########################################################
-??
+python manage.py flush
 
