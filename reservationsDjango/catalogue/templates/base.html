@@ -48,6 +48,11 @@
                         <a href="{% url 'catalogue:reservation-index' %}" class="{% if '/reservation/' in request.path %}active{% endif %}">Mes réservations</a>
                     </li>
                 {% endif %}
+                {% if user.is_authenticated and user.is_admin %}
+                    <li>
+                        <a href="{% url 'account:dashboard' %}" class="{% if '/dashboard/' in request.path %}active{% endif %}">Dashboard</a>
+                    </li>
+                {% endif %}
             </ul>
         </nav>
 

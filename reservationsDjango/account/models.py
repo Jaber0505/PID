@@ -68,4 +68,8 @@ class CustomUser(AbstractUser):
     
     def has_role(self, role_name: str) -> bool:
         return self.roles.filter(role=role_name).exists()
+    
+    @property
+    def is_admin(self):
+        return self.is_authenticated and self.roles.filter(role="Admin").exists()
 

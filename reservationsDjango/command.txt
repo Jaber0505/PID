@@ -96,4 +96,24 @@ RoleUser.objects.create(user=user, role=role)
 user.roles.add(role)
 user.save()
 
+####################################################
+## SUPPRIMER TOUTE LA BASE DE DONNE DANS POSTEGRE ##
+####################################################
+--> COMMANDE POSTGRE :
+----------------------
 
+DO $$ 
+DECLARE
+    r RECORD;
+BEGIN
+    FOR r IN (
+        SELECT tablename
+        FROM pg_tables
+        WHERE schemaname = 'public'
+    ) LOOP
+        EXECUTE 'DROP TABLE IF EXISTS public.' || quote_ident(r.tablename) || ' CASCADE';
+    END LOOP;
+END $$;
+
+
+--> FAIRE ENSUITE MIGRATION + FIXTURES

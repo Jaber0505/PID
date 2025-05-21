@@ -333,3 +333,69 @@ select:focus {
   text-align: center;
   min-width: 120px;
 }
+
+/*========================
+    USER
+=========================*/
+.page-title {
+    margin-bottom: 1.5rem;
+    font-size: 2rem;
+    font-weight: bold;
+    color: #222;
+}
+
+.table-users {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: Arial, sans-serif;
+}
+
+.table-users th, .table-users td {
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid #ddd;
+    text-align: left;
+}
+
+.table-users thead tr {
+    background-color: #004080;
+    color: white;
+}
+
+.table-users-row:hover {
+    background-color: #f5faff;
+}
+
+.table-users-username {
+    font-weight: 600;
+    color: #333;
+}
+
+.table-users-roles em {
+    color: #999;
+}
+
+.table-users-actions {
+    text-align: center;
+}
+
+.btn-edit {
+    display: inline-block;
+    background-color: #007bff;
+    color: white;
+    padding: 0.3rem 0.8rem;
+    border-radius: 4px;
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: background-color 0.3s ease;
+}
+
+.btn-edit:hover {
+    background-color: #0056b3;
+}
+
+.table-users-empty {
+    text-align: center;
+    padding: 1rem;
+    font-style: italic;
+    color: #777;
+}
